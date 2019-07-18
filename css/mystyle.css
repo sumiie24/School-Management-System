@@ -1,0 +1,56 @@
+*{
+	font-family: calibri;
+	font-size: 17px;
+	
+}
+
+.welcome_parent{
+	font-size: 35px;
+	padding-top: 40px;
+	font-weight: bold;
+	font-color:black;
+}
+
+.new_info{
+	padding-left: 150px;
+	font-size: 20px;
+}
+
+.student_1{
+	text-align: center;
+	font-size: 30px;
+}
+.student_details{
+	
+	font-size: 20px;
+}
+.student_details span{
+	
+	font-size: 20px;
+
+}
+
+.student_marks{
+  width: 100%;
+}
+ .student_marks th {
+ 	border: 1px solid white
+ }
+
+.student_marks td{
+  border: 1px solid black;
+  padding: 8px;
+}
+
+.student_marks tr{background-color: white;}
+
+.student_marks tr:hover {background-color: #ddd;}
+
+.student_marks th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: black;
+  color: white;
+}
+
