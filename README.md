@@ -17,6 +17,12 @@ Code available for Parent module only.
         <img src="https://github.com/sumiie24/School-Management-System/blob/master/screenshots%20and%20docs/SMSERDiagram.jpg" />
 
 
+## Updation
+* Result Analysis of student marks.
+* Fee Details information.
+* Academic Calendar. 
+
+
 ## Requirements
 * Web Browser
 
