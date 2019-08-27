@@ -2,22 +2,16 @@
 School Management System using HTML, CSS, JS, PHP &amp; MySQL
 
 
-## Features
-
-
 ## Screenshots 
-* h1
-        <img src="" />
+* Modules
+        <img src="https://github.com/sumiie24/School-Management-System/blob/master/screenshots%20and%20docs/modules.PNG" />
 
-* h1
-        <img src="" />
-
-* h1
-        <img src="" />
+* ER Diagram
+        <img src="https://github.com/sumiie24/School-Management-System/blob/master/screenshots%20and%20docs/SMSERDiagram.jpg" />
 
 
 ## Requirements
-*
+
 
 ## Contributing
 I welcome pull requests, bug fixes and issue reports. Before proposing a change, please discuss your change by raising an issue.
