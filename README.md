@@ -1,5 +1,9 @@
 # School-Management-System
-School Management System using HTML, CSS, JS, PHP &amp; MySQL
+School Management System using HTML, CSS, JS, PHP and MySQL. The project contains different module like student, admin, teacher, parent and librarian. Worked in designing pages and databases and backend development for Parent module.
+
+
+## Feature
+* Student, Parent can view their profile details, update their details, view attendance and view marks.
 
 
 ## Screenshots 
@@ -11,6 +15,7 @@ School Management System using HTML, CSS, JS, PHP &amp; MySQL
 
 
 ## Requirements
+* Web Browser
 
 
 ## Contributing
