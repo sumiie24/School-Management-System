@@ -2,6 +2,16 @@
 
     session_start();
     include_once("config.php");
+    
+    $email=  $_SESSION['email'];
+    $password=  $_SESSION['password'];
+
+    $first_name= "select * from Parent where Email_Id_Primary='$email' and Password='$password'";
+    $first_name_check= mysqli_query($mysqli,$first_name ) or die(mysqli_error($mysqli));
+    
+    $row = mysqli_fetch_array($first_name_check);
+    
+    $_SESSION['First_Name']= $row['First_Name'];
  
 ?>
 
@@ -9,9 +19,8 @@
 
 <head>
 
-	<title>Academic Calendar</title>
-	<link rel="shortcut icon" type="image/x-icon" href="images/bg.jpg">
-
+	<title>Parent Portal</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/bg.jpg">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -161,7 +170,7 @@
 			        <li class="dropdown">
 			            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 			                <img alt="" src="images/2.png">
-			                <span class="username"><?php echo  $_SESSION['First_Name']; ?></span>
+			                <span class="username"><?php echo $_SESSION['First_Name']; ?></span>
 			                <b class="caret"></b>
 			            </a>
 			            <ul class="dropdown-menu extended logout">
@@ -189,7 +198,7 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        
+		                
 		                <li class="sub-menu">
 		                    <a>
 		                        <i class="fa fa-user"></i>
@@ -216,7 +225,7 @@
 		                        <span>Student Result</span>
 		                    </a>
 		                </li>
-		               
+
 		                <li class="sub-menu">
 		                    <a href="parent_Result_Analysis.php">
 		                        <i class="fa fa-area-chart"></i>
@@ -248,89 +257,24 @@
 		<!--main content start-->
 		<section id="main-content">
 			<section class="wrapper">
-			<!-- page start-->
-				<div class="table-agile-info">
-					<div class="panel panel-default">
-						<div class="panel-heading">Academic Calender Events
-						</div>
-						<div>
-						    <table class="table" ui-jq="footable" ui-options='{
-						        "paging": {
-						          "enabled": true
-						        },
-						        "filtering": {
-						          "enabled": true
-						        },
-						        "sorting": {
-						          "enabled": true
-						        }}'>
-						    	<thead>
-						          	<tr>
-							        	<th data-breakpoints="xs">Year</th>
-							            <th>Event Name</th>
-							            <th>Date of Event</th>
-							            <th data-breakpoints="xs">Description</th>
-						          	</tr>
-						        </thead>
-						        
-						        <tbody>
-						          <tr data-expanded="true">
-							        	<td>2019</td>
-							            <td>Painting competition</td>
-							            <td>12 July 2019</td>
-							            <td>....</td>
-						          </tr>
+				<br>
+				<div>
+					<center style="font-size: 25px;"><b> Welcome! <?php echo $_SESSION['First_Name'] ;?></b> </center>
+				</div>
+				<br>
 
-						          <tr data-expanded="true">
-							           <td></td>
-							           <td>Music competition</td>
-							  		   <td>12 Aug 2019</td>
-							           <td>....</td>
-						          </tr>
+				<div class="grid_3 grid_5 w3ls">
+					<h3>Important Note -</h3>
+					<div class="alert alert-info" role="alert">
+						<strong>1. Attention! Pay your ward fees. Last Date is 20 July 2019.</strong>
+					</div>
 
-						          <tr data-expanded="true">
-							            <td></td>
-							      		<td>Annual Function</td>
-							  		 	<td>12 Sept 2019</td>
-							            <td>....</td>
-						          </tr>
-
-						        </tbody>
-						   	</table>
-						</div>
+					<div class="alert alert-info" role="alert">
+						<strong>2. Hello! Update your details.</strong>
 					</div>
 				</div>
-						
-			<!-- -->
-			<div class="agil-info-calendar">
-			<!-- calendar -->
-				<div class="col-md-6 agile-calendar">
-					<div class="calendar-widget">
-		                <div class="panel-heading ui-sortable-handle">
-							<span class="panel-icon">
-		                      <i class="fa fa-calendar-o"></i>
-		                    </span>
-		                    <span class="panel-title"> Calendar Widget</span>
-		                </div>
-						<!-- grids -->
-							<div class="agile-calendar-grid">
-								<div class="page">
-									
-									<div class="w3l-calendar-left">
-										<div class="calendar-heading">
-											
-										</div>
-										<div class="monthly" id="mycalendar"></div>
-									</div>
-									
-									<div class="clearfix"> </div>
-								</div>
-							</div>
-					</div>
-				</div>
-			</div>
 
-			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>			
+			<br><br><br><br><br><br><br><br><br>		
 			</section>
 
 		<!-- footer -->
@@ -344,8 +288,7 @@
 		</section>
 		<!--main content end-->
 	</section>
-
-
+	
 	<script src="js/bootstrap.js"></script>
 	<script src="js/jquery.dcjqaccordion.2.7.js"></script>
 	<script src="js/scripts.js"></script>

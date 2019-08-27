@@ -2,16 +2,89 @@
 
     session_start();
     include_once("config.php");
- 
+    
+    $email=  $_SESSION['email'];
+    $password=  $_SESSION['password'];
+
+    $first_name= "select * from Parent where Email_Id_Primary='$email' and Password='$password'";
+    $first_name_check= mysqli_query($mysqli,$first_name ) or die(mysqli_error($mysqli));
+
+    while($data=mysqli_fetch_array($first_name_check))
+    {
+        $_SESSION['Profile_Image']=$data['Profile_Image'];
+        $_SESSION['Parent_Reg_Id']=$data['Parent_Reg_Id'];
+        $_SESSION['Student_Reg_Id']=$data['Student_Reg_Id'];
+        $_SESSION['First_Name']=$data['First_Name'];
+        $_SESSION['Middle_Name']=$data['Middle_Name'];
+        $_SESSION['Last_Name']=$data['Last_Name'];
+        $_SESSION['Email_Id_Primary']=$data['Email_Id_Primary'];
+        $_SESSION['Email_Id_Secondary']=$data['Email_Id_Secondary'];
+        $_SESSION['Mobile_Number']=$data['Mobile_Number'];
+        $_SESSION['Telephone_Number']=$data['Telephone_Number'];
+        $_SESSION['Date_Of_Birth']=$data['Date_Of_Birth'];
+        $_SESSION['Registration_Start_Date']=$data['Registration_Start_Date'];
+        $_SESSION['Registration_End_Date']=$data['Registration_End_Date'];
+        $_SESSION['Password']=$data['Password'];
+    }
+    
+
+if(isset($_POST['save'])){
+        $mname1=mysqli_real_escape_string($mysqli, $_POST['mname']);
+        if(strcmp($_SESSION["Middle_Name"],$mname1)!=0){
+            $temp1=$_SESSION["Student_Reg_Id"];
+        
+            $result=mysqli_query($mysqli,"UPDATE Parent set Middle_Name= '$mname1' WHERE Student_Reg_Id='$temp1'");
+            $_SESSION["Middle_Name"]=$mname1;
+        }
+        
+        
+        $pemail1=mysqli_real_escape_string($mysqli, $_POST['pemail']);
+        if(strcmp($_SESSION["Email_Id_Primary"],$pemail1)!=0){
+            $temp1=$_SESSION["Student_Reg_Id"];
+        
+            $result=mysqli_query($mysqli,"UPDATE Parent set Email_Id_Primary= '$pemail1' WHERE Student_Reg_Id='$temp1'");
+            $_SESSION["Email_Id_Primary"]=$pemail1;
+        }
+        $semail1=mysqli_real_escape_string($mysqli, $_POST['semail']);
+        if(strcmp($_SESSION["Email_Id_Secondary"],$semail1)!=0){
+            $temp1=$_SESSION["Student_Reg_Id"];
+        
+            $result=mysqli_query($mysqli,"UPDATE Parent set Email_Id_Secondary= '$semail1' WHERE Student_Reg_Id='$temp1'");
+            $_SESSION["Email_Id_Secondary"]=$semail1;
+        }
+        $mobile1=mysqli_real_escape_string($mysqli, $_POST['mobile']);
+        if(strcmp($_SESSION["Mobile_Number"],$mobile1)!=0){
+            $temp1=$_SESSION["Student_Reg_Id"];
+        
+            $result=mysqli_query($mysqli,"UPDATE Parent set Mobile_number= '$mobile1' WHERE Student_Reg_Id='$temp1'");
+            $_SESSION["Mobile_Number"]=$mobile1;
+        }
+        $telephone1=mysqli_real_escape_string($mysqli, $_POST['telephone']);
+        if(strcmp($_SESSION["Telephone_Number"],$telephone1)!=0){
+            $temp1=$_SESSION["Student_Reg_Id"];
+        
+            $result=mysqli_query($mysqli,"UPDATE Parent set Telephone_Number= '$telephone1' WHERE Student_Reg_Id='$temp1'");
+            $_SESSION["Telephone_Number"]=$telephone1;
+        }
+        $password1=mysqli_real_escape_string($mysqli, $_POST['password']);
+        if(strcmp($_SESSION["Password"],$password1)!=0){
+            $temp1=$_SESSION["Student_Reg_Id"];
+        
+            $result=mysqli_query($mysqli,"UPDATE Parent set Password= '$password1' WHERE Student_Reg_Id='$temp1'");
+            $_SESSION["Password"]=$password1;
+        }
+    
+}
+    
+    
 ?>
 
 <!DOCTYPE html>
 
 <head>
 
-	<title>Academic Calendar</title>
-	<link rel="shortcut icon" type="image/x-icon" href="images/bg.jpg">
-
+	<title>Update Profile</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/bg.jpg">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -50,7 +123,7 @@
 		<!--logo start-->
 			<div class="brand">
 			    <a href="masterPageParent.php" class="logo">
-			        <?php echo  $_SESSION['First_Name']; ?>
+			          <?php echo  $_SESSION['First_Name']; ?>
 			    </a>
 			    <div class="sidebar-toggle-box">
 			        <div class="fa fa-bars"></div>
@@ -161,7 +234,7 @@
 			        <li class="dropdown">
 			            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 			                <img alt="" src="images/2.png">
-			                <span class="username"><?php echo  $_SESSION['First_Name']; ?></span>
+			                <span class="username">  <?php echo  $_SESSION['First_Name']; ?></span>
 			                <b class="caret"></b>
 			            </a>
 			            <ul class="dropdown-menu extended logout">
@@ -190,7 +263,7 @@
                             </a>
                         </li>
                         
-		                <li class="sub-menu">
+		               <li class="sub-menu">
 		                    <a>
 		                        <i class="fa fa-user"></i>
 		                        <span>Profile</span>
@@ -246,93 +319,137 @@
 		<!--sidebar end-->
 
 		<!--main content start-->
-		<section id="main-content">
-			<section class="wrapper">
-			<!-- page start-->
-				<div class="table-agile-info">
-					<div class="panel panel-default">
-						<div class="panel-heading">Academic Calender Events
-						</div>
-						<div>
-						    <table class="table" ui-jq="footable" ui-options='{
-						        "paging": {
-						          "enabled": true
-						        },
-						        "filtering": {
-						          "enabled": true
-						        },
-						        "sorting": {
-						          "enabled": true
-						        }}'>
-						    	<thead>
-						          	<tr>
-							        	<th data-breakpoints="xs">Year</th>
-							            <th>Event Name</th>
-							            <th>Date of Event</th>
-							            <th data-breakpoints="xs">Description</th>
-						          	</tr>
-						        </thead>
-						        
-						        <tbody>
-						          <tr data-expanded="true">
-							        	<td>2019</td>
-							            <td>Painting competition</td>
-							            <td>12 July 2019</td>
-							            <td>....</td>
-						          </tr>
-
-						          <tr data-expanded="true">
-							           <td></td>
-							           <td>Music competition</td>
-							  		   <td>12 Aug 2019</td>
-							           <td>....</td>
-						          </tr>
-
-						          <tr data-expanded="true">
-							            <td></td>
-							      		<td>Annual Function</td>
-							  		 	<td>12 Sept 2019</td>
-							            <td>....</td>
-						          </tr>
-
-						        </tbody>
-						   	</table>
-						</div>
+<section id="main-content">
+	<section class="wrapper">
+	<div class="form-w3layouts">
+        <!-- page start-->
+    <div class="row">
+            <div class="col-lg-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            UPDATE PROFILE
+                        </header>
+            <div class="panel-body">
+                <form class="form-horizontal bucket-form" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Registration ID:</label>
+                        <div class="col-sm-6">
+                            <?php
+			                echo '<input type="text" class="form-control" value='.$_SESSION["Parent_Reg_Id"].' readonly>';
+			                ?>
+                        </div>
+                    </div>
+               
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">First Name:</label>
+                        <div class="col-sm-6">
+                           <?php
+			                echo '<input type="text" class="form-control" value='.$_SESSION["First_Name"].' readonly>';
+			                ?>
+                        </div>
+                    </div> 
+           
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Middle Name:</label>
+                        <div class="col-sm-6">
+                            <?php
+			                echo '<input type="text"  name="mname" class="form-control" value='.$_SESSION["Middle_Name"].'>';
+			                ?>
+                        </div>
+                    </div> 
+               
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Last Name:</label>
+                        <div class="col-sm-6">
+                           <?php
+			                echo '<input type="text" class="form-control" value='.$_SESSION["Last_Name"].' readonly>';
+			                ?>
+                        </div>
+                    </div> 
+                
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Primary Email</label>
+                        <div class="col-sm-6">
+                          <?php
+			                echo '<input type="text" name="pemail" class="form-control" value='.$_SESSION["Email_Id_Primary"].'>';
+			                ?>
+                        </div>
+                    </div> 
+                
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Secondary Email:</label>
+                        <div class="col-sm-6">
+                           <?php
+			                echo '<input type="text" name="semail" class="form-control" value='.$_SESSION["Email_Id_Secondary"].'>';
+			                ?>
+                        </div>
+                    </div> 
+               
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Mobile Number:</label>
+                        <div class="col-sm-6">
+                           <?php
+			                echo '<input type="text" name="mobile" class="form-control" value='.$_SESSION["Mobile_Number"].'>';
+			                ?>
+                        </div>
+                    </div> 
+               
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Telephone Number:</label>
+                        <div class="col-sm-6">
+                           <?php
+			                echo '<input type="text" name="telephone" class="form-control" value='.$_SESSION["Telephone_Number"].'>';
+			                ?>
+                        </div>
+                    </div> 
+               
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Date Of Birth:</label>
+                        <div class="col-sm-6">
+                            <?php
+			                echo '<input type="text" class="form-control" value='.$_SESSION["Date_Of_Birth"].' readonly>';
+			                ?>
+                        </div>
+                    </div> 
+               
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Password:</label>
+                        <div class="col-sm-6">
+                          <?php
+			                echo '<input type="text" name="password" class="form-control" value='.$_SESSION["Password"].'>';
+			                ?>
+                        </div>
+                    </div> 
+               
+                     
+                
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Student Registration ID:</label>
+                        <div class="col-sm-6">
+                           <?php
+			                echo '<input type="text" class="form-control" value='.$_SESSION["Student_Reg_Id"].' readonly>';
+			                ?>
+                        </div>
+                    </div>
+              
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">Profile Picture</label>
+                        <div class="col-sm-6">
+                            <input type="file" class="form-control">
+                        </div>
+                    </div> 
+               
+                   <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-10">
+                            <button type="submit" name="save" class="btn btn-success">Save</button>
 					</div>
-				</div>
-						
-			<!-- -->
-			<div class="agil-info-calendar">
-			<!-- calendar -->
-				<div class="col-md-6 agile-calendar">
-					<div class="calendar-widget">
-		                <div class="panel-heading ui-sortable-handle">
-							<span class="panel-icon">
-		                      <i class="fa fa-calendar-o"></i>
-		                    </span>
-		                    <span class="panel-title"> Calendar Widget</span>
-		                </div>
-						<!-- grids -->
-							<div class="agile-calendar-grid">
-								<div class="page">
-									
-									<div class="w3l-calendar-left">
-										<div class="calendar-heading">
-											
-										</div>
-										<div class="monthly" id="mycalendar"></div>
-									</div>
-									
-									<div class="clearfix"> </div>
-								</div>
-							</div>
-					</div>
-				</div>
-			</div>
-
-			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>			
-			</section>
-
+				   </div>	
+				</form>
+                </div>
+            </div>
+        </div>
+    </div>       
+</section>
 		<!-- footer -->
 			<div class="footer">
 				<div class="wthree-copyright">
@@ -344,8 +461,7 @@
 		</section>
 		<!--main content end-->
 	</section>
-
-
+	
 	<script src="js/bootstrap.js"></script>
 	<script src="js/jquery.dcjqaccordion.2.7.js"></script>
 	<script src="js/scripts.js"></script>

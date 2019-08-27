@@ -1,8 +1,38 @@
+<?php
+
+    session_start();
+    include_once("config.php");
+    
+    $email=  $_SESSION['email'];
+    $password=  $_SESSION['password'];
+
+    $first_name= "select * from Parent where Email_Id_Primary='$email' and Password='$password'";
+    $first_name_check= mysqli_query($mysqli,$first_name ) or die(mysqli_error($mysqli));
+
+    while($data=mysqli_fetch_array($first_name_check))
+    {
+        $_SESSION['Profile_Image']=$data['Profile_Image'];
+        $_SESSION['Parent_Reg_Id']=$data['Parent_Reg_Id'];
+        $_SESSION['Student_Reg_Id']=$data['Student_Reg_Id'];
+        $_SESSION['First_Name']=$data['First_Name'];
+        $_SESSION['Middle_Name']=$data['Middle_Name'];
+        $_SESSION['Last_Name']=$data['Last_Name'];
+        $_SESSION['Email_Id_Primary']=$data['Email_Id_Primary'];
+        $_SESSION['Email_Id_Secondary']=$data['Email_Id_Secondary'];
+        $_SESSION['Mobile_Number']=$data['Mobile_Number'];
+        $_SESSION['Telephone_Number']=$data['Telephone_Number'];
+        $_SESSION['Date_Of_Birth']=$data['Date_Of_Birth'];
+        $_SESSION['Registration_Start_Date']=$data['Registration_Start_Date'];
+        $_SESSION['Registration_End_Date']=$data['Registration_End_Date'];
+        $_SESSION['Password']=$data['Password'];
+    }
+?>
 <!DOCTYPE html>
 
 <head>
 
 	<title>Profile</title>
+	<link rel="shortcut icon" type="image/x-icon" href="images/bg.jpg">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -41,8 +71,8 @@
 		
 		<!--logo start-->
 			<div class="brand">
-			    <a href="master_Page_Parent.php" class="logo">
-			        Name
+			    <a href="masterPageParent.php" class="logo">
+			        <?php echo  $_SESSION['First_Name']; ?>
 			    </a>
 			    <div class="sidebar-toggle-box">
 			        <div class="fa fa-bars"></div>
@@ -153,7 +183,7 @@
 			        <li class="dropdown">
 			            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 			                <img alt="pic" src="images/2.png">
-			                <span class="username">Parent Name</span>
+			                <span class="username"><?php echo  $_SESSION['First_Name']; ?></span>
 			                <b class="caret"></b>
 			            </a>
 			            <ul class="dropdown-menu extended logout">
@@ -176,7 +206,14 @@
 		        <div class="leftside-navigation">
 		            <ul class="sidebar-menu" id="nav-accordion">
 		                <li>
-		                    <a class="active" href="master_Page_Parent.php">
+                            <a class="active" href="masterPageParent.php">
+                                <i class="fa fa-dashboard"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        
+		                <li class="sub-menu">
+		                    <a>
 		                        <i class="fa fa-user"></i>
 		                        <span>Profile</span>
 		                    </a>
@@ -198,15 +235,10 @@
 		                <li>
 		                    <a href="parent_Student_Marks.php">
 		                        <i class="fa fa-newspaper-o"></i>
-		                        <span>Student Marks</span>
+		                        <span>Student Result</span>
 		                    </a>
 		                </li>
-		                <li class="sub-menu">
-		                    <a href="parent_Result.php">
-		                        <i class="fa fa-sticky-note-o"></i>
-		                        <span>Result</span>
-		                    </a>
-		                </li>
+		              
 		                <li class="sub-menu">
 		                    <a href="parent_Result_Analysis.php">
 		                        <i class="fa fa-area-chart"></i>
@@ -244,66 +276,96 @@
 			            <div class="col-lg-12">
 			                    <section class="panel">
 			                        <header class="panel-heading">
-			                            Profile
+			                          VIEW Profile
 			                        </header>  
-									<div class="bs-example">
-										<table class="table">
+            <div class="panel-body">
+					<div class="col-md-12 stats-info stats-last widget-shadow">
+						<div class="stats-last-agile">
+							<table class="table stats-table ">
 					                        <tbody>
+			                                   <tr>
+								                    <td><h5 id="h5.-bootstrap-heading">Profile Image<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
+								                    <td class="type-info"> <img width="100" height="100" alt="pic" src="images/image.png"></td>
+						                    	</tr>                            					                            
 					                        	<tr>
 													<td><h5 id="h5.-bootstrap-heading">Parent Registration ID<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-													<td class="type-info">PR001</td>
+														<?php
+													    echo '<td class="type-info">'.$_SESSION['Parent_Reg_Id'].'</td>';
+													    ?>
 												</tr>
 												<tr>
 													<td><h5 id="h5.-bootstrap-heading">Student Registration ID<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-													<td class="type-info">ST001</td>
+													<?php
+													    echo '<td class="type-info">'.$_SESSION['Student_Reg_Id'].'</td>';
+													    ?>
+													
 												</tr>
 					                        	<tr>
 													<td><h5 id="h5.-bootstrap-heading">First Name<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-													<td class="type-info">First Name</td>
+													<?php
+													    echo '<td class="type-info">'.$_SESSION['First_Name'].'</td>';
+													    ?>
 												</tr>
 					                        	<tr>
 													<td><h5 id="h5.-bootstrap-heading">Middle Name<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-													<td class="type-info">Middle Name</td>
+													<?php
+													    echo '<td class="type-info">'.$_SESSION['Middle_Name'].'</td>';
+													    ?>
 												</tr>
 					                        	<tr>
 													<td><h5 id="h5.-bootstrap-heading">Last Name<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-													<td class="type-info">Last Name</td>
+												<?php
+													    echo '<td class="type-info">'.$_SESSION['Last_Name'].'</td>';
+													    ?>
 												</tr>
 					                        	<tr>
 													<td><h5 id="h5.-bootstrap-heading">Email ID(Primary)<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-													<td class="type-info">parent@gmail.com</td>
+													<?php
+													    echo '<td class="type-info">'.$_SESSION['Email_Id_Primary'].'</td>';
+													    ?>
 												</tr>
 					                        	<tr>
 													<td><h5 id="h5.-bootstrap-heading">Email ID(Secondary)<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-													<td class="type-info">mother@gmail.com</td>
+												<?php
+													    echo '<td class="type-info">'.$_SESSION['Email_Id_Secondary'].'</td>';
+													    ?>
 												</tr>
 					                        	<tr>
 													<td><h5 id="h5.-bootstrap-heading">Mobile Number<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-													<td class="type-info">0123456789</td>
+													<?php
+													    echo '<td class="type-info">'.$_SESSION['Mobile_Number'].'</td>';
+													    ?>
 												</tr>
-					                        	<tr>
-													<td><h5 id="h5.-bootstrap-heading">Gender<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-													<td class="type-info">Male</td>
+												<tr>
+													<td><h5 id="h5.-bootstrap-heading">Telephone Number<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
+													<?php
+													    echo '<td class="type-info">'.$_SESSION['Telephone_Number'].'</td>';
+													    ?>
 												</tr>
+					                        	
 					                        	<tr>
 													<td><h5 id="h5.-bootstrap-heading">Date Of Birth<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-													<td class="type-info">01/01/1960</td>
+												<?php
+													    echo '<td class="type-info">'.$_SESSION['Date_Of_Birth'].'</td>';
+													    ?>
 												</tr>
 					                        	<tr>
 													<td><h5 id="h5.-bootstrap-heading">Registration Start Date<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-													<td class="type-info">01/01/2018</td>
+													<?php
+													    echo '<td class="type-info">'.$_SESSION['Registration_Start_Date'].'</td>';
+													    ?>
 												</tr>
 					                        	<tr>
 													<td><h5 id="h5.-bootstrap-heading">Registration End Date<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-													<td class="type-info">1/12/2020</td>
+													<?php
+													    echo '<td class="type-info">'.$_SESSION['Registration_End_Date'].'</td>';
+													    ?>
 												</tr>							
 					                        	<tr>
 													<td><h5 id="h5.-bootstrap-heading">Password<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-													<td class="type-info">password</td>
-												</tr>							
-					                        	<tr>
-													<td><h5 id="h5.-bootstrap-heading">Profile Image<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-													<td class="type-info"> <img alt="pic" src="images/2.png"></td>
+												<?php
+													    echo '<td class="type-info">'.$_SESSION['Password'].'</td>';
+													    ?>
 												</tr>							
 											</tbody>
 					            		</table>

@@ -1,8 +1,16 @@
+<?php
+
+    session_start();
+    include_once("config.php");
+ 
+?>
+
 <!DOCTYPE html>
 
 <head>
 
-	<title>Student Marks</title>
+	<title>Student Result</title>
+	<link rel="shortcut icon" type="image/x-icon" href="images/bg.jpg">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -41,7 +49,7 @@
 		
 		<!--logo start-->
 			<div class="brand">
-			    <a href="master_Page_Parent.php" class="logo">Name
+			    <a href="masterPageParent.php" class="logo"><?php echo  $_SESSION['First_Name']; ?>
 			    </a>
 			    <div class="sidebar-toggle-box">
 			        <div class="fa fa-bars"></div>
@@ -152,7 +160,7 @@
 			        <li class="dropdown">
 			            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 			                <img alt="" src="images/2.png">
-			                <span class="username">Parent Name</span>
+			                <span class="username"><?php echo  $_SESSION['First_Name']; ?></span>
 			                <b class="caret"></b>
 			            </a>
 			            <ul class="dropdown-menu extended logout">
@@ -175,7 +183,14 @@
 		        <div class="leftside-navigation">
 		            <ul class="sidebar-menu" id="nav-accordion">
 		                <li>
-		                    <a class="active" href="master_Page_Parent.php">
+                            <a class="active" href="masterPageParent.php">
+                                <i class="fa fa-dashboard"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        
+		                <li class="sub-menu">
+		                    <a>
 		                        <i class="fa fa-user"></i>
 		                        <span>Profile</span>
 		                    </a>
@@ -197,15 +212,10 @@
 		                <li>
 		                    <a href="parent_Student_Marks.php">
 		                        <i class="fa fa-newspaper-o"></i>
-		                        <span>Student Marks</span>
+		                        <span>Student Result</span>
 		                    </a>
 		                </li>
-		                <li class="sub-menu">
-		                    <a href="parent_Result.php">
-		                        <i class="fa fa-sticky-note-o"></i>
-		                        <span>Result</span>
-		                    </a>
-		                </li>
+		               
 		                <li class="sub-menu">
 		                    <a href="parent_Result_Analysis.php">
 		                        <i class="fa fa-area-chart"></i>
@@ -236,152 +246,138 @@
 
 		<!--main content start-->
 		<section id="main-content">
-			<section class="wrapper">
-				<div class="form-w3layouts">
-	        		<!-- page start-->
-					<div class="row">
-				        <div class="col-lg-12">
-				            <section class="panel">
-				                <header style="font-size: 20px;" class="panel-heading">Student Subject Marks
-				                </header>
-				            	<div class="panel-body">
-					                <form class="form-horizontal bucket-form" method="get">     
-					                	<div class="form-group">
-					                        <label class="col-sm-3 control-label col-lg-3">Select Class</label>
-					                        <div class="col-lg-6">
-					                            <select class="form-control m-bot15" required="true">
-					                            	<option></option>
-					                                <option>Nursery</option>
-					                                <option>LKG</option>
-					                                <option>UKG</option>
-					                                <option>I</option>
-					                                <option>II</option>
-					                                <option>III</option>
-					                                <option>IV</option>
-					                                <option>V</option>
-					                                <option>VI</option>
-					                                <option>VII</option>
-					                                <option>VIII</option>
-					                                <option>IX</option>
-					                                <option>X</option>
-					                                <option>XI</option>
-					                                <option>XII</option>
-					                            </select>
-					                        </div>  
-					                    </div>    
-					                </form>
-					               
-					                <form class="form-horizontal bucket-form" method="get"> 
-					                   <div class="form-group">
-					                    <div class="col-lg-offset-3 col-lg-10">
-					                        <button type="submit" class="btn btn-success">Submit</button>
-										</div>
-									   </div>	
-									</form>
-				           		</div>
-				        	</section>
-				        </div>
-				    </div>
-				</div> 
-
-				<div class="table-agile-info">
-					<div class="panel panel-default">
-					    <div class="panel-heading">Marks
-					    </div>
-					    <div>
-					    	<table class="table" ui-jq="footable" ui-options='{
-						        "paging": {
-						          "enabled": true
-						        },
-						        "filtering": {
-						          "enabled": true
-						        },
-						        "sorting": {
-						          "enabled": true
-						        }}'>
-					        <thead>
-					            <tr>
-									<th>Sr. no</th>
-									<th>Subjects Name </th>
-									<th>Exam 1 </th>
-									<th>Exam 2 </th>
-									<th>Exam 3 </th>
-									<th>Total</th>
-									<th>Grade</th>
-					            </tr>
-					        </thead>
-					        
-					        <tbody>
-					        	<tr>
-									<td>1.</td>
-									<td>Subject 1</td>
-									<td>11</td>
-									<td>12</td>
-									<td>13</td>
-									<td>36</td>
-									<td>A</td>
-								</tr>
-
-					        	<tr>
-									<td>2.</td>
-									<td>Subject 2</td>
-									<td>11</td>
-									<td>12</td>
-									<td>13</td>
-									<td>36</td>
-									<td>A</td>
-								</tr>
-
-								<tr>
-									<td>3.</td>
-									<td>Subject 3</td>
-									<td>11</td>
-									<td>12</td>
-									<td>13</td>
-									<td>36</td>
-									<td>A</td>
-								</tr>
-
-								<tr>
-									<td>4.</td>
-									<td>Subject 4</td>
-									<td>11</td>
-									<td>12</td>
-									<td>13</td>
-									<td>36</td>
-									<td>A</td>
-								</tr>
-
-								<tr>
-									<td>5.</td>
-									<td>Subject 5</td>
-									<td>11</td>
-									<td>12</td>
-									<td>13</td>
-									<td>36</td>
-									<td>A</td>
-								</tr>
-
-					        </tbody>
-					      </table>
-					    </div>
-					  </div>
-					</div>   			
-
-			<br><br><br><br><br><br><br><br><br><br><br>
-			</section>
-
-		<!-- footer -->
-			<div class="footer">
-				<div class="wthree-copyright">
-					<p>© 2019 NewSchoolSystem. All rights reserved</p> 
-				</div>
-			</div>
-		<!-- / footer -->
-
-		</section>
-		<!--main content end-->
+	<section class="wrapper">
+	    <div class="form-w3layouts"> 
+					<div class="grid_3 grid_4 w3layouts"> 
+			          <div class="row">
+			            <div class="col-lg-12">
+			                    <section class="panel">
+			                        <header class="panel-heading">
+			                            RESULT
+			                        </header> 
+			                        
+			                        <section class="panel">
+                  <div class="panel-body">
+                        <form class="form-horizontal bucket-form" method="get">
+				  <div class="col-md-12 stats-info stats-last widget-shadow">
+			      <div class="stats-last-agile">
+                    <form class="form-horizontal bucket-form" method="get">
+				  <div class="form-group">
+                    <br>
+                    <label class="col-sm-3 control-label col-lg-3" for="inputSuccess">Select Class</label>
+                        <div class="col-lg-6">
+                            <select class="form-control input-sm m-bot15">
+                                <option>Class</option>
+                                <option>1</option>
+                                <option>2</option>
+								<option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>    
+				
+				<form class="form-horizontal bucket-form" method="get">	
+				    <div class="form-group">
+				    <br>    
+					<label class="col-sm-3 control-label">Select Section</label>
+						<div class="col-lg-6">
+						<select class="form-control input-sm m-bot15">
+                                <option>Section</option>
+                                <option>A</option>
+                                <option>B</option>
+                        </select>
+                        </div>
+                    </div>
+                </form>        
+                   
+                <form class="form-horizontal bucket-form" method="get">	
+				    <div class="form-group">
+				    <br>    
+                        <label class="col-sm-3 control-label">Select Term</label>
+                        <div class="col-lg-6">
+                        <select class="form-control input-sm m-bot15">
+                                <option>Term</option>
+                                <option>1st Term</option>
+                                <option>Final</option>
+                        </select>
+                        </div>
+                    </div>
+                </form>        
+                       <form class="form-horizontal bucket-form" method="get"> 
+                   <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-10">
+                            <button type="submit" class="btn btn-success">Submit</button>
+							<button type="submit" class="btn btn-danger">Reset</button>
+					</div>
+				   </div>	
+				</form>
+                  
+                    
+               
+        </section>
+	
+			                        
+									<div class="bs-example">
+										<table class="table">
+					                        <tbody>
+					                            <tr>
+													<td><h5 id="h5.-bootstrap-heading">Subject 1<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
+													<td><h5 id="h5.-bootstrap-heading">Subject 2<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
+													<td><h5 id="h5.-bootstrap-heading">Subject 3<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
+													
+													<td><h5 id="h5.-bootstrap-heading">Subject 4<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
+													
+													<td><h5 id="h5.-bootstrap-heading">Subject 5<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
+													
+													<td><h5 id="h5.-bootstrap-heading">Subject 6<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
+													
+													<td><h5 id="h5.-bootstrap-heading">Subject 7<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
+													
+												</tr>
+												<tr>
+													<td class="type-info">90</td>
+													<td class="type-info">80</td>
+													<td class="type-info">92</td>
+													<td class="type-info">84</td>
+													<td class="type-info">85</td>
+													
+													<td class="type-info">89</td>
+													
+													<td class="type-info">75</td>
+													
+													
+												</tr>
+											</tbody>
+					            		</table>
+				        			</div>
+			        			</section> 
+			        			
+			        			
+			    			</div>
+			    		</div>
+			    	</div>
+			    </div>
 	</section>
+ 
+<!-- footer -->
+		  <div class="footer">
+			<div class="wthree-copyright">
+			  <p>© 2019 NewSchoolSystem. All rights reserved 
+			  <!--  | Design by <a href="http://w3layouts.com">W3layouts</a></p>   -->
+			</div>
+		  </div>
+  <!-- / footer -->
+ 
+</section>
+<!--main content end-->
+</section>
 
 	<script src="js/bootstrap.js"></script>
 	<script src="js/jquery.dcjqaccordion.2.7.js"></script>
